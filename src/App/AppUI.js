@@ -1,5 +1,6 @@
 import { useContext } from 'react'
 import { CreateTodoButton } from '../CreateTodoButton'
+import { EmptyTodos } from '../EmptyTodos'
 import { Modal } from '../Modal'
 import { TodoContext } from '../TodoContext'
 import { TodoCounter } from '../TodoCounter'
@@ -7,6 +8,8 @@ import { TodoForm } from '../TodoForm'
 import { TodoItem } from '../TodoItem'
 import { TodoList } from '../TodoList'
 import { TodoSearch } from '../TodoSearch'
+import { TodosError } from '../TodosError'
+import { TodosLoading } from '../TodosLoading'
 
 const AppUI = () => {
   const {
@@ -25,9 +28,9 @@ const AppUI = () => {
     <TodoSearch />
 
     <TodoList>
-      { error && <p>Desespérate, hubo un error...</p> }
-      { loading && <p>Estamos cargando, no desesperes...</p> }
-      { !loading && !searchedTodos.length && <p>Crea tu primer TODO!</p> }
+      { error && <TodosError error={ error } /> }
+      { loading && <TodosLoading /> }
+      { !loading && !searchedTodos.length && <EmptyTodos /> }
 
       { searchedTodos.map((todo) => (<TodoItem
         completed={ todo.completed }
